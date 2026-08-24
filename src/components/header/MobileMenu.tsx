@@ -1,17 +1,23 @@
 import React, { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { X, Calendar, Phone, Sparkles } from 'lucide-react';
-import type { MobileNavProps } from '../../types/navigation';
+import type { NavItem } from '../../types/navigation';
 import { Button } from '../ui/Button';
 
-export const MobileMenu: React.FC<MobileNavProps> = ({
+interface MobileMenuProps {
+  isOpen: boolean;
+  onClose: () => void;
+  items: NavItem[];
+}
+
+export const MobileMenu: React.FC<MobileMenuProps> = ({
   isOpen,
   onClose,
   items,
-  activePath,
-  onNavigate,
-  onOpenBookingModal,
 }) => {
-  // Lock body scroll when mobile drawer is open
+  const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -23,20 +29,15 @@ export const MobileMenu: React.FC<MobileNavProps> = ({
     };
   }, [isOpen]);
 
-  const handleLinkClick = (e: React.MouseEvent, href: string) => {
-    e.preventDefault();
-    const path = href.replace('#', '');
-    onNavigate(path);
-    onClose();
+  const isLinkActive = (href: string) => {
+    if (href === '/' && location.pathname === '/') return true;
+    if (href !== '/' && location.pathname.startsWith(href)) return true;
+    return false;
   };
 
   const handleBookingClick = () => {
     onClose();
-    if (onOpenBookingModal) {
-      onOpenBookingModal();
-    } else {
-      onNavigate('booking');
-    }
+    navigate('/appointment');
   };
 
   return (
@@ -66,7 +67,7 @@ export const MobileMenu: React.FC<MobileNavProps> = ({
               A
             </div>
             <span className="font-serif font-bold text-lg tracking-widest text-[#0B2521]">
-              AURA
+              AMNA
             </span>
           </div>
           <button
@@ -82,14 +83,13 @@ export const MobileMenu: React.FC<MobileNavProps> = ({
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           <ul className="space-y-3">
             {items.map((item) => {
-              const path = item.href.replace('#', '');
-              const isActive = activePath === path;
+              const isActive = isLinkActive(item.href);
 
               return (
                 <li key={item.title}>
-                  <a
-                    href={item.href}
-                    onClick={(e) => handleLinkClick(e, item.href)}
+                  <Link
+                    to={item.href}
+                    onClick={onClose}
                     className={`flex items-center justify-between p-3 rounded-xl font-medium text-base transition-colors ${
                       isActive
                         ? 'bg-[#F4ECE6] text-[#0B2521] font-bold border-l-4 border-[#C89B7B]'
@@ -98,7 +98,7 @@ export const MobileMenu: React.FC<MobileNavProps> = ({
                   >
                     <span>{item.title}</span>
                     {item.isDropdown && <Sparkles className="w-4 h-4 text-[#C89B7B]" />}
-                  </a>
+                  </Link>
                 </li>
               );
             })}

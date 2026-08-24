@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export const FooterSection: React.FC = () => {
   const [settings, setSettings] = useState({
@@ -30,8 +31,8 @@ export const FooterSection: React.FC = () => {
     <footer className="bg-[#0B2521] text-white/80 pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12">
         <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#C89B7B] text-[#0B2521] font-serif font-bold text-xl flex items-center justify-center">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-full bg-[#C89B7B] text-[#0B2521] font-serif font-bold text-xl flex items-center justify-center group-hover:scale-105 transition-transform">
               {settings.logoText.charAt(0) || 'A'}
             </div>
             <div className="flex flex-col">
@@ -42,7 +43,7 @@ export const FooterSection: React.FC = () => {
                 {settings.clinicName.toUpperCase()}
               </span>
             </div>
-          </div>
+          </Link>
           <p className="text-xs text-white/70 leading-relaxed">
             Advanced aesthetic science, medical dermatology, and laser hair restoration led by board-certified specialist physicians.
           </p>
@@ -51,23 +52,24 @@ export const FooterSection: React.FC = () => {
         <div className="space-y-3 text-xs">
           <h4 className="font-serif font-bold text-sm text-white uppercase tracking-wider">Navigation</h4>
           <ul className="space-y-2">
-            <li><a href="#home" className="hover:text-[#C89B7B] transition-colors">Home</a></li>
-            <li><a href="#about" className="hover:text-[#C89B7B] transition-colors">About Us</a></li>
-            <li><a href="#services" className="hover:text-[#C89B7B] transition-colors">Treatments</a></li>
-            <li><a href="#doctors" className="hover:text-[#C89B7B] transition-colors">Specialist Doctors</a></li>
-            <li><a href="#gallery" className="hover:text-[#C89B7B] transition-colors">Before & After Gallery</a></li>
-            <li><a href="#testimonials" className="hover:text-[#C89B7B] transition-colors">Patient Reviews</a></li>
+            <li><Link to="/" className="hover:text-[#C89B7B] transition-colors">Home</Link></li>
+            <li><Link to="/about" className="hover:text-[#C89B7B] transition-colors">About Us</Link></li>
+            <li><Link to="/services" className="hover:text-[#C89B7B] transition-colors">Treatments</Link></li>
+            <li><Link to="/doctors" className="hover:text-[#C89B7B] transition-colors">Specialist Doctors</Link></li>
+            <li><Link to="/gallery" className="hover:text-[#C89B7B] transition-colors">Before & After Gallery</Link></li>
+            <li><Link to="/appointment" className="hover:text-[#C89B7B] transition-colors">Book Appointment</Link></li>
+            <li><Link to="/contact" className="hover:text-[#C89B7B] transition-colors">Contact Us</Link></li>
           </ul>
         </div>
 
         <div className="space-y-3 text-xs">
           <h4 className="font-serif font-bold text-sm text-white uppercase tracking-wider">Treatments</h4>
           <ul className="space-y-2">
-            <li><a href="#services" className="hover:text-[#C89B7B] transition-colors">Acne & Scar Removal</a></li>
-            <li><a href="#services" className="hover:text-[#C89B7B] transition-colors">Laser Hair Removal</a></li>
-            <li><a href="#services" className="hover:text-[#C89B7B] transition-colors">Hydra Facial Glow</a></li>
-            <li><a href="#services" className="hover:text-[#C89B7B] transition-colors">PRP Hair Therapy</a></li>
-            <li><a href="#services" className="hover:text-[#C89B7B] transition-colors">Botox & Dermal Fillers</a></li>
+            <li><Link to="/services?category=laser" className="hover:text-[#C89B7B] transition-colors">Acne & Scar Removal</Link></li>
+            <li><Link to="/services?category=laser" className="hover:text-[#C89B7B] transition-colors">Laser Hair Removal</Link></li>
+            <li><Link to="/services?category=skin" className="hover:text-[#C89B7B] transition-colors">Hydra Facial Glow</Link></li>
+            <li><Link to="/services?category=hair" className="hover:text-[#C89B7B] transition-colors">PRP Hair Therapy</Link></li>
+            <li><Link to="/services?category=anti-aging" className="hover:text-[#C89B7B] transition-colors">Botox & Dermal Fillers</Link></li>
           </ul>
         </div>
 
@@ -91,8 +93,8 @@ export const FooterSection: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <div>&copy; 2026 {settings.clinicName}. All Rights Reserved.</div>
           <div className="space-x-4 text-[11px]">
-            <a href="#" className="hover:underline">Privacy Policy</a>
-            <a href="#" className="hover:underline">Terms of Medical Care</a>
+            <Link to="/about" className="hover:underline">About Clinic</Link>
+            <Link to="/contact" className="hover:underline">Location & Care</Link>
           </div>
         </div>
       </div>

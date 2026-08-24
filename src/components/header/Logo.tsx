@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 interface LogoProps {
   isScrolled?: boolean;
-  onNavigate?: (path: string) => void;
 }
 
-export const Logo: React.FC<LogoProps> = ({ isScrolled = false, onNavigate }) => {
+export const Logo: React.FC<LogoProps> = ({ isScrolled = false }) => {
   const [logoText, setLogoText] = useState('Amna');
   const [subText, setSubText] = useState('AMNA SKIN & HAIR CLINIC');
 
@@ -32,8 +32,8 @@ export const Logo: React.FC<LogoProps> = ({ isScrolled = false, onNavigate }) =>
   }, []);
 
   return (
-    <div
-      onClick={() => onNavigate && onNavigate('home')}
+    <Link
+      to="/"
       className="flex items-center gap-3 cursor-pointer group select-none"
     >
       {/* Circle Icon Badge */}
@@ -56,6 +56,6 @@ export const Logo: React.FC<LogoProps> = ({ isScrolled = false, onNavigate }) =>
           {subText.toUpperCase()}
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
