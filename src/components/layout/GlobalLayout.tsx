@@ -22,7 +22,14 @@ export const GlobalLayout: React.FC = () => {
     setActivePath(path);
     const element = document.getElementById(path);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition >= 0 ? offsetPosition : 0,
+        behavior: 'smooth',
+      });
     }
   };
 
